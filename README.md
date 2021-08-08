@@ -5,6 +5,16 @@
 yarn install
 ```
 
+## To Run Server Code
+
+
+```bash
+cd .\Server\
+uvicorn server:app --reload
+```
+
+
+
 ### Compiles and hot-reloads for development
 ```
 yarn serve
