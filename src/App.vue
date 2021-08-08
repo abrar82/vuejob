@@ -1,32 +1,75 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div id="app" class="wrapper">
+ <form @submit.prevent="showJobs">
+      <input type="text" name="todo-text" v-model="newUser" placeholder="New todo">
+    <button type="submit">Submit</button>
+    </form>
+    <div v-if="isRec">
+<h1>Recruiter UI</h1>
+
+<Recruiter></Recruiter>
     </div>
-    <router-view/>
+    <div v-else-if="isCand">
+<h1>Candidate UI</h1>
+<Candidate></Candidate>
+    </div>
+    <div v-else>
+
+<h1>Welcome</h1>
+    </div>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import Candidate from './views/Candidate.vue'
+import Recruiter from './views/Recruiter.vue'
+export default{
+  components: {
+    Candidate,
+    Recruiter
+  },
+  data(){
+    return{
+      recruiter:"recruiter@screel.in",
+      candidate:"candidate@screel.in",
+      isRec:false,
+      isCand:false,
+      newUser:""
+    }
+  },
+    methods: {
+    showJobs() {
+      const trimmedText = this.newUser.trim()
+      if(!trimmedText){
+        this.isRec = false
+        this.isCand = false
+         console.log(trimmedText +" s"+ this.isCand + " "+ this.isRec)
+      
+      }else{
+    if (trimmedText===this.recruiter) {
+       
+        this.isRec = true
+        this.isCand = false
+        
+       
+        console.log(trimmedText +" "+ this.isCand + " "+ this.isRec)
+      }else if(trimmedText===this.candidate){
+     
+        this.isCand = true
+        this.isRec = false
+       
+        console.log(trimmedText +" "+ this.isCand + " "+ this.isRec)
+      }
 
-#nav {
-  padding: 30px;
-}
+      this.newUser = ""
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+      }
+          },
 }
+}
+</script>
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+
+<style >
+
 </style>
