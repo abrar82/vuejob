@@ -249,8 +249,39 @@ methods:{
         alert("Please fill all the Details")
     }
     },
-    submitJob(){
+    async submitJob(){
 
+		if (confirm('Are  you sure to Create this '+ this.job.job_name +' Job?')) {		
+
+		
+		console.log(JSON.stringify(this.job))
+		const res = await fetch(`http://127.0.0.1:8000/jobs`, {
+			method: 'POST',
+			headers: {
+				'accept': 'application/json',
+    			'Content-Type': 'application/json'
+			  },
+			body: JSON.stringify(this.job)
+		})
+		
+		if (res.ok) {
+			
+            alert("Job Created Successfully!!")
+			// resetData()
+			 this.job.job_id="",
+		this.job.job_name="",
+		this.job.description="",
+		this.job.role = '',
+		this.job.experience = '',
+		this.job.qualification= '',
+		this.job.job_location = '',
+		this.job.salary= ''
+			console.log(res)
+  		return res.json();
+		} else {
+			console.log("Failed")
+		}
+	}
     },
     editJobView(job){
 
