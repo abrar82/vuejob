@@ -238,6 +238,10 @@ methods:{
 		if (res.ok) {
             alert("Job Updated Successfully!!")
 			// resetData()
+			this.job.experience = '',
+		this.job.qualification= '',
+		this.job.job_location = '',
+		this.job.salary= ''
 			console.log(res)
   		return res.json();
 		} else {

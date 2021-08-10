@@ -1,9 +1,10 @@
 <template>
   <div id="app" class="wrapper">
- <form @submit.prevent="showJobs">
+ <!-- <form @submit.prevent="showJobs"> -->
       <input type="text" name="todo-text" v-model="newUser" placeholder="New todo">
-    <button type="submit">Submit</button>
-    </form>
+    <button type="submit" @click.prevent="showJobs" class="subBtn">Submit</button>
+    <!-- <button type="submit"  class="subBtn">Submit</button> -->
+    <!-- </form> -->
     <div v-if="isRec">
 <h1>Recruiter UI</h1>
 
