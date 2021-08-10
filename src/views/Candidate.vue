@@ -62,7 +62,7 @@
    />
 </label><br><br>
 
-	 <button v-on:click="submitApplication(application)" >Submit Application</button>
+	 <button v-on:click="submitApplication()" >Submit Application</button>
       <button v-on:click="resetData" >Reset Application</button>
         </div>
         <div v-else>
@@ -74,16 +74,6 @@
 
 <script>// @ts-nocheck
 
-// var example2 = new Vue({
-//   el: '#example-2',
-//   data: {
-//     parentMessage: 'Parent',
-//     items: [
-//       { id: 1, message: 'Foo' },
-//       {  id: 2,message: 'Bar' }
-//     ]
-//   }
-// })
 export default {
     data(){
         return{
@@ -168,6 +158,11 @@ if (confirm('Are you sure to Apply for '+  this.jobData.job_name +' Job?')) {
   const data = await response.json();
   	if (response.ok) {
 alert("Job Applied Successfully!!")
+
+        this.application.applicant_name = "",
+        this.application.applicant_phone = "",
+        this.application.applicant_email = "",
+        this.application.applied_time =""
 console.log(this.application)
 console.log(data)
       }else{

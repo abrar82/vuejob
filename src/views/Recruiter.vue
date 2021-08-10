@@ -309,6 +309,7 @@ methods:{
         this.isApplyJob = true
         this.isFormVis = true
         this.updateDisabled = true
+        this.editDisabled = false
 
          this.job.job_id="",
 		this.job.job_name="",
