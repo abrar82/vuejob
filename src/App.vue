@@ -1,22 +1,35 @@
 <template>
-  <div id="app" class="wrapper">
- <!-- <form @submit.prevent="showJobs"> -->
-      <input type="text" name="todo-text" v-model="newUser" placeholder="New todo">
-    <button type="submit" @click.prevent="showJobs" class="subBtn">Submit</button>
+  <div
+    id="app"
+    class="wrapper"
+  >
+    <!-- <form @submit.prevent="showJobs"> -->
+    <input
+      v-model="newUser"
+      type="text"
+      name="todo-text"
+      placeholder="New todo"
+    >
+    <button
+      type="submit"
+      class="subBtn"
+      @click.prevent="showJobs"
+    >
+      Submit
+    </button>
     <!-- <button type="submit"  class="subBtn">Submit</button> -->
     <!-- </form> -->
     <div v-if="isRec">
-<h1>Recruiter UI</h1>
+      <h1>Recruiter UI</h1>
 
-<Recruiter></Recruiter>
+      <Recruiter />
     </div>
     <div v-else-if="isCand">
-<h1>Candidate UI</h1>
-<Candidate></Candidate>
+      <h1>Candidate UI</h1>
+      <Candidate />
     </div>
     <div v-else>
-
-<h1>Welcome</h1>
+      <h1>Welcome</h1>
     </div>
   </div>
 </template>

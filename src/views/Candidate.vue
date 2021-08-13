@@ -1,75 +1,99 @@
 <template>
-<div>
-   <button @click.prevent="created" :disabled="isLoading">Show</button>
+  <div>
+    <button
+      :disabled="isLoading"
+      @click.prevent="created"
+    >
+      Show
+    </button>
     <div v-if="!isLoading">
-        <ul id="example-2" v-if="!isApplyJob">
-        <li v-for="job in data" v-bind:key="job.id">
-           <h3 >Job Name : {{job.job_name}}</h3>
-	<h3>Job Description : {{job.description}}</h3>
-	<h3>Job Qualification :{{job.qualification}}</h3>
-	<h3>Job Location :{{job.job_location}}</h3>
-	<h3>Salary : {{job.salary}}</h3>
+      <ul
+        v-if="!isApplyJob"
+        id="example-2"
+      >
+        <li
+          v-for="job in data"
+          :key="job.id"
+        >
+          <h3>Job Name : {{ job.job_name }}</h3>
+          <h3>Job Description : {{ job.description }}</h3>
+          <h3>Job Qualification :{{ job.qualification }}</h3>
+          <h3>Job Location :{{ job.job_location }}</h3>
+          <h3>Salary : {{ job.salary }}</h3>
     
-	 <button v-on:click="applyJob(job)" >Apply job</button>
-	<!-- <button on:click={ applyJob(job) }   hidden = {candihide}>
+          <button @click="applyJob(job)">
+            Apply job
+          </button>
+          <!-- <button on:click={ applyJob(job) }   hidden = {candihide}>
 		Apply Job
 	</button> -->
-	<!-- <button on:click={ deleteJob(job) } hidden = {adminhide} disabled= {candisabled} >
+          <!-- <button on:click={ deleteJob(job) } hidden = {adminhide} disabled= {candisabled} >
 		Delete Job -->
-	<!-- </button> -->
-	<hr>
+          <!-- </button> -->
+          <hr>
         </li>
-        </ul>
-        <div v-else-if="isFormVis">
-            <h5>You are applying for</h5>
-            <h4>Job Name : {{jobData.job_name}}</h4>
-            <h4>Job Description : {{jobData.description}}</h4>
-            <h4>Job Location : {{jobData.job_location}}</h4>
-            <label class="input-label" for="applicantName">
-	Applicant Name : 
-	<input
-	class="wide"
-	id="applicantName"
-	name="applicantName"
-	v-model="application.applicant_name"
-	type="text"
-	data-multistep-error-message="name couldn't be empty"
-	placeholder="Enter Applicant Name" 
-   />
-</label><br><br>
-<label class="input-label" for="applicantPhone">
-	Applicant Phone : 
-	<input
-	class="wide"
-	id="applicantPhone"
-	name="applicantPhone"
-	v-model="application.applicant_phone"
-	type="text"
-	data-multistep-error-message="name couldn't be empty"
-	placeholder="Enter Applicant Phone Number" 
-   />
-</label><br><br>
-<label class="input-label" for="applicantEmail">
-	Applicant Email : 
-	<input
-	class="wide"
-	id="applicantEmail"
-	name="applicantEmail"
-	v-model="application.applicant_email"
-	type="text"
-	data-multistep-error-message="name couldn't be empty"
-	placeholder="Enter Applicant Email" 
-   />
-</label><br><br>
+      </ul>
+      <div v-else-if="isFormVis">
+        <h5>You are applying for</h5>
+        <h4>Job Name : {{ jobData.job_name }}</h4>
+        <h4>Job Description : {{ jobData.description }}</h4>
+        <h4>Job Location : {{ jobData.job_location }}</h4>
+        <label
+          class="input-label"
+          for="applicantName"
+        >
+          Applicant Name : 
+          <input
+            id="applicantName"
+            v-model="application.applicant_name"
+            class="wide"
+            name="applicantName"
+            type="text"
+            data-multistep-error-message="name couldn't be empty"
+            placeholder="Enter Applicant Name" 
+          >
+        </label><br><br>
+        <label
+          class="input-label"
+          for="applicantPhone"
+        >
+          Applicant Phone : 
+          <input
+            id="applicantPhone"
+            v-model="application.applicant_phone"
+            class="wide"
+            name="applicantPhone"
+            type="text"
+            data-multistep-error-message="name couldn't be empty"
+            placeholder="Enter Applicant Phone Number" 
+          >
+        </label><br><br>
+        <label
+          class="input-label"
+          for="applicantEmail"
+        >
+          Applicant Email : 
+          <input
+            id="applicantEmail"
+            v-model="application.applicant_email"
+            class="wide"
+            name="applicantEmail"
+            type="text"
+            data-multistep-error-message="name couldn't be empty"
+            placeholder="Enter Applicant Email" 
+          >
+        </label><br><br>
 
-	 <button v-on:click="submitApplication()" >Submit Application</button>
-      <button v-on:click="resetData" >Reset Application</button>
-        </div>
-        <div v-else>
-
-        </div>
+        <button @click="submitApplication()">
+          Submit Application
+        </button>
+        <button @click="resetData">
+          Reset Application
+        </button>
+      </div>
+      <div v-else />
     </div>
- </div>
+  </div>
 </template>
 
 <script>// @ts-nocheck

@@ -1,172 +1,227 @@
 <template>
   <div>
-   <button @click.prevent="displayJob" >Show Job</button>
-   <button @click.prevent="displayCreateJob" >Create Job</button>
-   <button @click.prevent="loadApplication">Applications</button>
+    <div>
+      <button @click.prevent="displayJob">
+        Show Job
+      </button>
+      <button @click.prevent="displayCreateJob">
+        Create Job
+      </button>
+      <button @click.prevent="loadApplication">
+        Applications
+      </button>
+    </div>
     <div v-if="!isLoading">
-        <ul id="example-2" v-if="!isApplyJob">
-        <li v-for="job in data" v-bind:key="job.id">
-           <h3 >Job Name : {{job.job_name}}</h3>
-	<h3>Job Description : {{job.description}}</h3>
-	<h3>Job Qualification :{{job.qualification}}</h3>
-	<h3>Job Location :{{job.job_location}}</h3>
-	<h3>Salary : {{job.salary}}</h3>
+      <ul
+        v-if="!isApplyJob"
+        id="example-2"
+      >
+        <li
+          v-for="jobs in data"
+          :key="jobs.id"
+        >
+          <h3>Job Name : {{ jobs.job_name }}</h3>
+          <h3>Job Description : {{ jobs.description }}</h3>
+          <h3>Job Qualification :{{ jobs.qualification }}</h3>
+          <h3>Job Location :{{ jobs.job_location }}</h3>
+          <h3>Salary : {{ jobs.salary }}</h3>
     
-	 <button v-on:click="editJobView(job)" >Edit job</button>
-	 <button v-on:click="deleteJob(job)" >Delete job</button>
-	<!-- <button on:click={ applyJob(job) }   hidden = {candihide}>
+          <button @click="editJobView(jobs)">
+            Edit job
+          </button>
+          <button @click="deleteJob(jobs)">
+            Delete job
+          </button>
+          <!-- <button on:click={ applyJob(job) }   hidden = {candihide}>
 		Apply Job
 	</button> -->
-	<!-- <button on:click={ deleteJob(job) } hidden = {adminhide} disabled= {candisabled} >
+          <!-- <button on:click={ deleteJob(job) } hidden = {adminhide} disabled= {candisabled} >
 		Delete Job -->
-	<!-- </button> -->
-	<hr>
+          <!-- </button> -->
+          <hr>
         </li>
-        </ul>
-         </div>
-<br><br>
-         <div v-if="isFormVis">
-<div>
-			<label class="input-label" for="jobId">
-				Job Id : 
-				<input
-				class="wide"
-				id="jobId"
-				name="jobId"
-				v-model="job.job_id"
-				type="text"
-				:disabled= editDisabled
-				data-multistep-error-message="name couldn't be empty"
-				placeholder="Enter job's Name" 
-			   />
+      </ul>
+    </div>
+    <br><br>
+    <div v-if="isFormVis">
+      <div>
+        <label
+          class="input-label"
+          for="jobId"
+        >
+          Job Id : 
+          <input
+            id="jobId"
+            v-model="job.job_id"
+            class="wide"
+            name="jobId"
+            type="text"
+            :disabled="editDisabled"
+            data-multistep-error-message="name couldn't be empty"
+            placeholder="Enter job's Name" 
+          >
 			   
-			</label><br><br>
-			<label class="input-label" for="JobName">
-				Job Name : 
-				<input
-				class="wide"
-				id="JobName"
-				name="JobName"
-				v-model="job.job_name"
-				type="text"
-				:disabled= editDisabled
-				data-multistep-error-message="name couldn't be empty"
-				placeholder="Enter job's Name" 
-			   />
+        </label><br><br>
+        <label
+          class="input-label"
+          for="JobName"
+        >
+          Job Name : 
+          <input
+            id="JobName"
+            v-model="job.job_name"
+            class="wide"
+            name="JobName"
+            type="text"
+            :disabled="editDisabled"
+            data-multistep-error-message="name couldn't be empty"
+            placeholder="Enter job's Name" 
+          >
 			   
-			</label><br><br>
-			<label class="input-label" for="description">
-				Job Description : 
-				<input
-				class="wide"
-				id="description"
-				name="description"
-				v-model="job.description"
-				type="text"
-				:disabled=editDisabled
-				data-multistep-error-message="name couldn't be empty"
-				placeholder="Enter job's Description" 
-			   />
+        </label><br><br>
+        <label
+          class="input-label"
+          for="description"
+        >
+          Job Description : 
+          <input
+            id="description"
+            v-model="job.description"
+            class="wide"
+            name="description"
+            type="text"
+            :disabled="editDisabled"
+            data-multistep-error-message="name couldn't be empty"
+            placeholder="Enter job's Description" 
+          >
 			   
-			</label><br><br>
-			<label class="input-label" for="role">
-				Job Role : 
-				<input
-				class="wide"
-				id="role"
-				name="role"
-				v-model="job.role"
-				type="text"
-				:disabled=editDisabled
-				data-multistep-error-message="name couldn't be empty"
-				placeholder="Enter Job's Role" 
-			   />
+        </label><br><br>
+        <label
+          class="input-label"
+          for="role"
+        >
+          Job Role : 
+          <input
+            id="role"
+            v-model="job.role"
+            class="wide"
+            name="role"
+            type="text"
+            :disabled="editDisabled"
+            data-multistep-error-message="name couldn't be empty"
+            placeholder="Enter Job's Role" 
+          >
 			   
-			</label><br><br>
-			<label class="input-label" for="experience">
-				Job Experience : 
-				<input
-				class="wide"
-				id="experience"
-				name="experience"
-				v-model="job.experience"
-				type="text"
-				data-multistep-error-message="name couldn't be empty"
-				placeholder="Enter job's Experience" 
-			   />
+        </label><br><br>
+        <label
+          class="input-label"
+          for="experience"
+        >
+          Job Experience : 
+          <input
+            id="experience"
+            v-model="job.experience"
+            class="wide"
+            name="experience"
+            type="text"
+            data-multistep-error-message="name couldn't be empty"
+            placeholder="Enter job's Experience" 
+          >
 			   
-			</label><br><br>
-			<label class="input-label" for="qualification">
-				Job Qualification : 
-				<input
-				class="wide"
-				id="qualification"
-				name="qualification"
-				v-model="job.qualification"
-				type="text"
-				data-multistep-error-message="name couldn't be empty"
-				placeholder="Enter job's Qualification" 
-			   />
+        </label><br><br>
+        <label
+          class="input-label"
+          for="qualification"
+        >
+          Job Qualification : 
+          <input
+            id="qualification"
+            v-model="job.qualification"
+            class="wide"
+            name="qualification"
+            type="text"
+            data-multistep-error-message="name couldn't be empty"
+            placeholder="Enter job's Qualification" 
+          >
 			   
-			</label><br><br>
-			<label class="input-label" for="location">
-				Job Location : 
-				<input
-				class="wide"
-				id="location"
-				name="location"
-				v-model="job.job_location"
-				type="text"
-				data-multistep-error-message="name couldn't be empty"
-				placeholder="Enter job's Location" 
-			   />
+        </label><br><br>
+        <label
+          class="input-label"
+          for="location"
+        >
+          Job Location : 
+          <input
+            id="location"
+            v-model="job.job_location"
+            class="wide"
+            name="location"
+            type="text"
+            data-multistep-error-message="name couldn't be empty"
+            placeholder="Enter job's Location" 
+          >
 			   
-			</label><br><br>
-			<label class="input-label" for="salary">
-				Salary : 
-				<input
-				class="wide"
-				id="salary"
-				name="salary"
-				v-model="job.salary"
-				type="text"
-				data-multistep-error-message="name couldn't be empty"
-				placeholder="Enter job's Salary" 
-			   />
+        </label><br><br>
+        <label
+          class="input-label"
+          for="salary"
+        >
+          Salary : 
+          <input
+            id="salary"
+            v-model="job.salary"
+            class="wide"
+            name="salary"
+            type="text"
+            data-multistep-error-message="name couldn't be empty"
+            placeholder="Enter job's Salary" 
+          >
 			   
-			</label><br><br>
+        </label><br><br>
             
-            <button @click.prevent="submitJob" :disabled="!updateDisabled"  >Post Job</button>
-            <button @click.prevent="updateJob" :disabled="updateDisabled" >Update Job</button>
-			<!-- <button id="showBtn" name="showBtn" on:click={ doPost } hidden = {edithide} >
+        <button
+          :disabled="!updateDisabled"
+          @click.prevent="submitJob"
+        >
+          Post Job
+        </button>
+        <button
+          :disabled="updateDisabled"
+          @click.prevent="updateJob"
+        >
+          Update Job
+        </button>
+        <!-- <button id="showBtn" name="showBtn" on:click={ doPost } hidden = {edithide} >
 				post Job
 			</button>
 			<button id="editBtn" name="editBtn" {disabled}  on:click={ updateJob  } hidden = {createhide}   >
 				Update Job
 			</button> -->
-		 </div>
-         </div>
-         <div v-if="isAppliVis">
-             <ul id="example-2">
-        <li v-for="application in applications" v-bind:key="application.id">
-            <h3>Applicant Name : {{application.applicant_name}}</h3>
-			<h3>Applicant Phone : {{application.applicant_phone}}</h3>
-			<h3>Applicant Email : {{application.applicant_email}}</h3>
-			<h3>Job Id : {{application.job_id}}</h3>
-			<h3>Job Name : {{application.job_name}}</h3>
+      </div>
+    </div>
+    <div v-if="isAppliVis">
+      <ul id="example-2">
+        <li
+          v-for="application in applications"
+          :key="application.id"
+        >
+          <h3>Applicant Name : {{ application.applicant_name }}</h3>
+          <h3>Applicant Phone : {{ application.applicant_phone }}</h3>
+          <h3>Applicant Email : {{ application.applicant_email }}</h3>
+          <h3>Job Id : {{ application.job_id }}</h3>
+          <h3>Job Name : {{ application.job_name }}</h3>
     
-	 <!-- <button v-on:click="applyJob(job)" >Apply job</button> -->
-	<!-- <button on:click={ applyJob(job) }   hidden = {candihide}>
+          <!-- <button v-on:click="applyJob(job)" >Apply job</button> -->
+          <!-- <button on:click={ applyJob(job) }   hidden = {candihide}>
 		Apply Job
 	</button> -->
-	<!-- <button on:click={ deleteJob(job) } hidden = {adminhide} disabled= {candisabled} >
+          <!-- <button on:click={ deleteJob(job) } hidden = {adminhide} disabled= {candisabled} >
 		Delete Job -->
-	<!-- </button> -->
-	<hr>
+          <!-- </button> -->
+          <hr>
         </li>
-        </ul>
-         </div>
+      </ul>
     </div>
+  </div>
 </template>
 
 <script>
